@@ -1,0 +1,39 @@
+#Camilo Andres Alvarez log
+import re #Para expresiones Regulares
+from collections import defaultdict # Importamos 'defaultdict' desde 'collections' para contar de manera sencilla
+
+# Leer las líneas del archivo access.log
+with open('access.log', 'r') as file:
+    lines = file.readlines()
+
+# Expresión regular para capturar el User-Agent
+user_agent_pattern = re.compile(r'"[^"]*"$')
+
+# Diccionario para contar tipos de navegadores
+browser_count = defaultdict(int) # Creamos un diccionario 'browser_count' que contará cuántas veces aparece cada navegador
+
+# Función simple para identificar el navegador desde el User-Agent
+def identify_browser(ua_string):
+    if "Chrome" in ua_string and "Safari" in ua_string and "Edg" not in ua_string:
+        return "Chrome"
+    elif "Firefox" in ua_string:
+        return "Firefox"
+    elif "Safari" in ua_string and "Chrome" not in ua_string:
+        return "Safari"
+    elif "Edg" in ua_string:
+        return "Edge"
+    else:
+        return "Otros"
+
+# Extraer y clasificar navegadores
+for line in lines: # Buscamos una coincidencia del User-Agent en la línea usando la expresión regular
+    match = user_agent_pattern.search(line)
+    if match:
+        ua_string = match.group().strip('"')
+        browser = identify_browser(ua_string)
+        browser_count[browser] += 1
+
+# Mostrar los resultados
+print("Conteo de navegadores detectados:")
+for browser, count in browser_count.items(): # Recorremos el diccionario de navegadores y mostramos los resultados
+    print(f"{browser}: {count}")
