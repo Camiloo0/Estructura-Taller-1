@@ -1,0 +1,51 @@
+#28 Abril Partidos Camilo Alvarez
+import json  # Se importa la librería json (aunque no se utiliza directamente en este script)
+
+# Definimos la estructura del árbol binario para la fase Semifinal con dos partidos
+semifinal = {
+    "fase": "Semifinal",
+    "izquierdo": {  # Partido entre Barcelona y Chelsea
+        "visitante": "Chealsea",
+        "local": "Barcelona",
+        "resultado": "1-1",
+        "tarjetas": {
+            "rojas": 1,
+            "amarillas": 5
+        }
+    },
+    "derecho": {  # Partido entre Manchester United y Arsenal
+        "visitante": "Arsenal",
+        "local": "Manchester United",
+        "resultado": "1-3",
+        "tarjetas": {
+            "rojas": 1,
+            "amarillas": 4
+        }
+    }
+}
+
+# Se muestran las opciones de partidos disponibles
+print("¿Qué partido quieres ver?")
+print("1. Barcelona vs Chealsea")
+print("2. Manchester United vs Arsenal")
+
+# Se solicita al usuario ingresar la opción deseada
+opcion = input("   Ingresa 1 o 2: ")
+
+# Se selecciona el partido en función de la opción del usuario
+if opcion == "1":
+    partido = semifinal["izquierdo"]
+elif opcion == "2":
+    partido = semifinal["derecho"]
+else:
+    # Si la opción no es válida, se termina el programa con un mensaje
+    print("Opción inválida.")
+    exit()
+
+# Se imprime el resultado del partido seleccionado
+print("\nResultado:", partido["resultado"])
+
+# Se muestran las tarjetas amarillas y rojas del partido
+print("Tarjetas:")
+print(" Amarillas:", partido["tarjetas"]["amarillas"])
+print(" Rojas:", partido["tarjetas"]["rojas"])
